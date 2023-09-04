@@ -1,0 +1,31 @@
+.extended__forecast {
+  position: relative;
+  margin-top: 20px;
+  padding: 60px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 15px;
+  h2 {
+    font-weight: 500px;
+    font-size: 25px;
+    color: rgb(114, 126, 142);
+    position: absolute;
+    left: 25px;
+    top: 5px;
+  }
+  &-day {
+    color: rgb(57, 107, 174);
+    img {
+      width: 80%;
+      height: auto;
+    }
+    h4 {
+      line-height: 0;
+    }
+    h6 {
+      font-size: 15px;
+      line-height: 0;
+    }
+  }
+}

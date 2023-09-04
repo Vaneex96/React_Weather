@@ -1,0 +1,126 @@
+.current__weather {
+  display: flex;
+  margin-top: 20px;
+  padding: 10px;
+  justify-content: space-between;
+  min-height: 400px;
+  background-color: #fff;
+  // opacity: 0.8;
+  // backdrop-filter: blur(20px);
+  border-radius: 15px;
+
+  h2 {
+    display: flex;
+    align-items: start;
+    margin-left: 15px;
+  }
+  &-main_info {
+    width: 450px;
+    font-weight: 500px;
+    font-size: 1.125rem;
+    color: rgb(114, 126, 142);
+    &-name_city {
+      display: flex;
+      align-items: start;
+      margin-left: 20px;
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: rgb(57, 107, 174);
+    }
+    &-temperature {
+      font-size: 100px;
+      img {
+        width: 90px;
+        height: auto;
+        margin-right: 30px;
+      }
+    }
+    h6 {
+      font-size: 50px;
+      margin: 0 auto;
+    }
+  }
+
+  &-other_info {
+    margin-left: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-top: 25px;
+    width: 300px;
+    color: rgb(123, 152, 178);
+    font-size: 20px;
+    .arrows {
+      display: flex;
+      height: 50px;
+      .up {
+        margin: 0 auto;
+        height: 30px;
+        display: flex;
+        color: rgb(48, 128, 200);
+        h6 {
+          margin-left: 10px;
+          font-size: 20px;
+        }
+      }
+      .low {
+        margin: 0 auto;
+        display: flex;
+        color: rgb(48, 128, 200);
+        margin-left: 20px;
+        h6 {
+          margin-left: 10px;
+          font-size: 20px;
+        }
+      }
+    }
+    .humidity {
+      width: 200px;
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      color: rgb(123, 152, 178);
+      span {
+        margin-left: 20px;
+        color: rgb(48, 128, 200);
+      }
+      img {
+        margin-right: 20px;
+        width: 30px;
+        height: 30px;
+      }
+    }
+    .wind {
+      width: 200px;
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      color: rgb(123, 152, 178);
+      span {
+        margin-left: 50px;
+        color: rgb(48, 128, 200);
+      }
+      img {
+        margin-right: 20px;
+        width: 30px;
+        height: 30px;
+      }
+    }
+    .pressure {
+      width: 200px;
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      color: rgb(123, 152, 178);
+      span {
+        margin-left: 20px;
+        color: rgb(48, 128, 200);
+      }
+      img {
+        margin-right: 20px;
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}
