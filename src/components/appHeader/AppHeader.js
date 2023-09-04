@@ -5,7 +5,7 @@ import ligthMode from "../../resources/main_bg.jpg";
 
 import "./AppHeader.scss";
 
-const AppHeader = (props) => {
+const AppHeader = () => {
   const [toggle, setToggle] = useState(true);
 
   const switchMode = () => {
