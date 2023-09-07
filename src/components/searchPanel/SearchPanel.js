@@ -1,9 +1,12 @@
 import "./SearchPanel.scss";
 
-const SearchPanel = () => {
+const SearchPanel = (props) => {
   return (
     <div className="SearchPanel">
-      <input placeholder="Search your city..." />
+      <input
+        placeholder="Search your city..."
+        onKeyDown={props.onChangeValue}
+      />
     </div>
   );
 };
