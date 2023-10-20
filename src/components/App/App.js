@@ -4,7 +4,7 @@ import CurrentWeather from "../currentWeather/CurrentWeather";
 import WeekWeather from "../weekWeather/WeekWeather";
 import AppFooter from "../appFooter/AppFooter";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import "./App.scss";
 
