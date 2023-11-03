@@ -1,31 +1,22 @@
 import { useState } from "react";
 
-// import cloud from "../resources/icons/icons8-clouds-80.png";
-// import sun from "../resources/icons/icons8-sun-80.png";
-// import partlyCloudy from "../resources/icons/icons8-partly-cloudy-day-80.png";
-// import rain from "../resources/icons/icons8-rain-80.png";
-
-import * as Icons from "../resources/Icons";
+import Icons from "../resources/Icons";
 
 const useWeatherServices = () => {
   const _apiKey = "4de1ba0debbbc6e5eb1d87dd254780fb";
   const _apiBase = "https://api.openweathermap.org/data/2.5/";
   const _defaultCity = "Olawa";
   const _metricUnits = "metric";
-  const _imperialUnits = "imperial";
 
-  const [currentLoaded, setCurrentLoaded] = useState(false);
-  const [weekLoaded, setWeekLoaded] = useState(false);
-  const [weekData, setWeekData] = useState([]);
   const [currentData, setCurrentData] = useState({});
+  const [weekData, setWeekData] = useState([]);
 
-  const getWeekWeather = async (
-    city = _defaultCity,
-    units = _metricUnits,
-    method = "GET",
-    body = null,
-    headers = { "Content-Type": "application/json" }
-  ) => {
+  const [weekWeatherStatus, setWeekWeatherStatus] = useState("idle");
+  const [currentWeatherStatus, setCurrentWeatherStatus] = useState("idle");
+
+  const getWeekWeather = async (city = _defaultCity, units = _metricUnits) => {
+    setWeekWeatherStatus("loading");
+
     const result = await fetch(
       `${_apiBase}forecast?q=${city}&APPID=${_apiKey}&units=${units}`,
 
@@ -35,22 +26,50 @@ const useWeatherServices = () => {
     const data = await result
       .json()
       .then((res) => {
+        setWeekWeatherStatus("loaded");
         setWeekData(
           res.list
             .filter((item) => item.dt_txt.slice(11, 20) === "15:00:00")
             .map((item) => _transformData(item))
         );
-        setWeekLoaded(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setWeekWeatherStatus("error");
+      });
 
     return data;
   };
+  //////////////////////////////////////
+  const getWeekWeatherByGeolocation = async ({ latitude, longitude }) => {
+    setWeekWeatherStatus("loading");
 
-  const getCurrentWeather = async (
-    city = _defaultCity,
-    units = _metricUnits
-  ) => {
+    const result = await fetch(
+      `${_apiBase}forecast?lat=${latitude}&lon=${longitude}&appid=${_apiKey}&units=${_metricUnits}`,
+      { method: "GET", body: null, "Content-Type": "application/json" }
+    );
+
+    const data = await result
+      .json()
+      .then((res) => {
+        setWeekWeatherStatus("loaded");
+        setWeekData(
+          res.list
+            .filter((item) => item.dt_txt.slice(11, 20) === "15:00:00")
+            .map((item) => _transformData(item))
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+        setWeekWeatherStatus("error");
+      });
+
+    return data;
+  };
+  //////////////////////////////////
+  const getCurrentWeather = async (city, units = _metricUnits) => {
+    setCurrentWeatherStatus("loading");
+
     const result = await fetch(
       `${_apiBase}weather?q=${city}&APPID=${_apiKey}&units=${units}`
     );
@@ -58,26 +77,55 @@ const useWeatherServices = () => {
     const data = await result
       .json()
       .then((res) => {
+        setCurrentWeatherStatus("loaded");
         setCurrentData(_transformData(res));
-        setCurrentLoaded(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setCurrentWeatherStatus("error");
+      });
 
     return data;
   };
+  /////////////////////////////////
+  const getCurrentWeatherByGeolocation = async ({ latitude, longitude }) => {
+    setCurrentWeatherStatus("loading");
 
+    const result = await fetch(
+      `${_apiBase}weather?lat=${latitude}&lon=${longitude}&appid=${_apiKey}&units=${_metricUnits}`
+    );
+
+    const data = await result
+      .json()
+      .then((res) => {
+        setCurrentWeatherStatus("loaded");
+        setCurrentData(_transformData(res));
+      })
+      .catch((error) => {
+        console.log(error);
+        setCurrentWeatherStatus("error");
+      });
+
+    return data;
+  };
+  //////////////////////////////////
   const _transformData = (data) => {
     return {
+      name: data.name,
       main: data.weather[0].main,
       descr: data.weather[0].description,
-      icons: _transformIcon(data.weather[0].icon.slice(0, 2)),
+      icons: Icons[data.weather[0].icon.slice(0, 2)]
+        ? Icons[data.weather[0].icon.slice(0, 2)]
+        : Icons["03"],
       temp: Math.round(data.main.temp),
+      tempImperial: Math.round((data.main.temp * 9) / 5 + 32),
       feels: Math.round(data.main.feels_like),
       minTemp: Math.round(data.main.temp_min),
       maxTemp: Math.round(data.main.temp_max),
       pressure: Math.round(data.main.pressure),
       humidity: Math.round(data.main.humidity),
       windSpeed: Math.round(data.wind.speed),
+      windSpeedImperial: Math.round(data.wind.speed * 3.6),
       day: data.dt_txt ? data.dt_txt.slice(8, 11) : null,
       month: data.dt_txt ? data.dt_txt.slice(5, 7) : null,
       year: data.dt_txt ? data.dt_txt.slice(0, 4) : null,
@@ -85,61 +133,15 @@ const useWeatherServices = () => {
     };
   };
 
-  // const _transformIcon = (icon) => {
-  //   let image = null;
-  //   switch (icon) {
-  //     case "01":
-  //       image = sun;
-  //       break;
-  //     case "02":
-  //       image = partlyCloudy;
-  //       break;
-  //     case "04":
-  //       image = cloud;
-  //       break;
-  //     case "10":
-  //       image = rain;
-  //       break;
-  //     default:
-  //       image = cloud;
-  //   }
-
-  //   return image;
-  // };
-
-  const iconsMatch = {
-    "01": "fsdfsd",
-  };
-
-  const _transformIcon = (icon) => {
-    let image = null;
-    switch (icon) {
-      case "01":
-        image = Icons.cloud;
-        break;
-      case "02":
-        image = Icons.cloud;
-        break;
-      case "04":
-        image = Icons.cloud;
-        break;
-      case "10":
-        image = Icons.cloud;
-        break;
-      default:
-        image = Icons.cloud;
-    }
-
-    return image;
-  };
-
   return {
     getWeekWeather,
+    getWeekWeatherByGeolocation,
     weekData,
-    weekLoaded,
     getCurrentWeather,
+    getCurrentWeatherByGeolocation,
     currentData,
-    currentLoaded,
+    currentWeatherStatus,
+    weekWeatherStatus,
   };
 };
 

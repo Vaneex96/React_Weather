@@ -1,27 +1,25 @@
 import ToggleButton from "../button/toggleButton";
-import { useState, useEffect } from "react";
-import nightMode from "../../resources/main_bg_nigth_mode.png";
-import ligthMode from "../../resources/main_bg.jpg";
-
 import "./AppHeader.scss";
 
-const AppHeader = () => {
-  const [toggle, setToggle] = useState(true);
-
+const AppHeader = (props) => {
   const switchMode = () => {
-    document.body.style.background = `url(${
-      toggle ? ligthMode : nightMode
-    }) center no-repeat`;
-    setToggle(!toggle);
+    props.setToggle(!props.toggle);
   };
 
-  useEffect(() => {
-    switchMode();
-  }, []);
+  if (props.toggle) {
+    document.body.style.backgroundColor = "rgba(7, 4, 41, 0.9)";
+    document.body.style.backgroundBlendMode = "overlay";
+  }
+
+  if (!props.toggle) {
+    document.body.style.background = "";
+  }
 
   return (
     <header className="app__header">
-      <h1 style={{ color: toggle ? "white" : "black" }}>React Weather </h1>
+      <h1 style={{ color: props.toggle ? "grey" : "rgb(47, 93, 138)" }}>
+        React Weather{" "}
+      </h1>
       <ToggleButton id={111} switchMode={switchMode} />
     </header>
   );
