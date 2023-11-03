@@ -25,7 +25,12 @@ function App() {
 
   return (
     <div className="App">
-      <AppHeader toggle={toggle} setToggle={setToggle} />
+      <AppHeader
+        toggle={toggle}
+        setToggle={setToggle}
+        input={input}
+        geolocation={geolocation}
+      />
       <SearchPanel
         setInput={setInput}
         toggle={toggle}

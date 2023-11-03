@@ -1,7 +1,17 @@
+import { useEffect, useState } from "react";
+
 import ToggleButton from "../button/toggleButton";
 import "./AppHeader.scss";
 
 const AppHeader = (props) => {
+  const [input, setInput] = useState(false);
+
+  useEffect(() => {
+    if (props.input || props.geolocation) {
+      setInput(true);
+    }
+  }, [props.input, props.geolocation]);
+
   const switchMode = () => {
     props.setToggle(!props.toggle);
   };
@@ -16,7 +26,10 @@ const AppHeader = (props) => {
   }
 
   return (
-    <header className="app__header">
+    <header
+      className="app__header"
+      style={{ marginTop: !input ? "300px" : "0" }}
+    >
       <h1 style={{ color: props.toggle ? "grey" : "rgb(47, 93, 138)" }}>
         React Weather{" "}
       </h1>
