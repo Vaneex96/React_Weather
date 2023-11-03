@@ -145,11 +145,12 @@
       font-size: 15px;
       color: rgb(114, 126, 142);
       &-name_city {
-        margin-left: 129px;
+        margin-left: 133px;
       }
       &-temperature {
         font-size: 50px;
         img {
+          margin-top: 20px;
           margin-left: 50px;
           width: 80px;
           height: auto;
@@ -172,6 +173,12 @@
       width: 200px;
       color: rgb(123, 152, 178);
       font-size: 20px;
+      h4 {
+        margin-left: 38px;
+      }
+      .arrows {
+        margin-left: 52px;
+      }
     }
   }
 }

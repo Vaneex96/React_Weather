@@ -1,0 +1,14 @@
+.app__footer {
+  margin-top: 20px;
+  &-developer_name {
+    font-size: 20px;
+    font-weight: 500;
+    font-family: inherit;
+    color: rgb(47, 93, 138);
+    a {
+      font-size: 20px;
+      font-family: inherit;
+      color: rgb(47, 93, 138);
+    }
+  }
+}
