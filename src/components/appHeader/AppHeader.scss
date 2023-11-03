@@ -5,3 +5,13 @@
     color: rgb(47, 93, 138);
   }
 }
+
+@media (max-width: 455px) {
+  .app__header {
+    margin-left: 10px;
+    width: 435px;
+    h1 {
+      margin-left: 10px;
+    }
+  }
+}

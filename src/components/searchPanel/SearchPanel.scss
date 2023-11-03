@@ -32,3 +32,13 @@
     cursor: pointer;
   }
 }
+
+@media (max-width: 455px) {
+  .SearchPanel {
+    margin-left: 10px;
+    width: 445px;
+    form {
+      width: 415px;
+    }
+  }
+}

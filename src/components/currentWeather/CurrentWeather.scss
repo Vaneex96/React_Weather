@@ -122,3 +122,56 @@
     }
   }
 }
+
+@media (max-width: 455px) {
+  .current__weather {
+    h2 {
+      margin-left: 75px;
+    }
+    .switch {
+      position: absolute;
+      right: 20px;
+    }
+    margin-left: 10px;
+    flex-direction: column;
+    align-items: center;
+    width: 415px;
+    &-main_info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 325px;
+      font-weight: 500px;
+      font-size: 15px;
+      color: rgb(114, 126, 142);
+      &-name_city {
+        margin-left: 129px;
+      }
+      &-temperature {
+        font-size: 50px;
+        img {
+          margin-left: 50px;
+          width: 80px;
+          height: auto;
+          margin-right: 30px;
+        }
+      }
+      h6 {
+        font-size: 35px;
+        margin: 0 auto;
+      }
+    }
+
+    &-other_info {
+      margin-right: 64px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      padding-top: 25px;
+      width: 200px;
+      color: rgb(123, 152, 178);
+      font-size: 20px;
+    }
+  }
+}

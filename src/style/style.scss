@@ -15,12 +15,18 @@ code {
 .App {
   width: 900px;
   margin: 0 auto;
-  padding: 50px 0 50px 0;
+  padding: 8px 0 50px 0;
   position: relative;
   .bg-decoration {
     position: absolute;
     right: -174px;
     bottom: -70px;
     z-index: -1;
+  }
+}
+
+@media (max-width: 455px) {
+  .App {
+    width: 455px;
   }
 }
